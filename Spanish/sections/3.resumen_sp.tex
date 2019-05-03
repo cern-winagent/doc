@@ -1,0 +1,26 @@
+\label{sec:sol}
+% indicarase a solución aportada para o problema
+% presentado. Deberase incluír aquí a metodoloxía empregada.
+    Tras realizar un análisis de los componentes con los que comunmente se cuenta en entornos domésticos, se ha concluido que no es posible crear una solución estándar para los diferentes proveedores de servicios de Internet, por tanto, se plantea la realización de un sistema de control parental sobre accesos Wi-Fi en un router con OpenWRT, un sistema operativo compatible con un gran número de los routers actuales del mercado y adaptable a la mayoría de los existentes. 
+    
+    Se creará una aplicación sobre Android para el control de los dispositivos conectados a la red Wi-Fi doméstica, y una servicio que se ejecute como demonio en el router, donde se recibirán conexiones desde la aplicación con la configuración a establecer. La conexión se realizará mediante paquetes UDP, evitando así el establecimiento de conexión y ganando en velocidad.
+
+    La funcionalidades de la aplicación se desarrollarán utilizando los propios mecanismos proporcionados por OpenWRT para el control de sus sistemas. El apagado/encendido de la red Wi-Fi se realizará a través del comando \textit{wifi} con los argumentos necesarios en cada caso, mientras que la gestión del control de accesos se llevará a cabo mediante los archivos de configuración de ubicados en \textit{/etc/config}.
+
+    Para llevar a cabo la creación de este sistema, inicialmente se valoró el uso de una metodología de desarrollo en cascada, sin embargo, tras una nueva aproximación al problema, se llegó a la conclusión de que esta no era la solución más acertada debido a que el sistema se basa en un entorno de red, además se necesita realizar compilación cruzada utilizando un SDK específico, el cual cuenta con sus propias librerías, y la documentación de la que se dispone puede estar incompleta, desactualizada o errónea en su totalidad. Esto lleva como consecuencia que se necesite realizar pruebas de envíos de paquetes constantemente, y que, debido a la diferencia de librerías, se requiera realizar cambios en el código que se plantee inicialmente. También es necesario que el sistema ocupe el menor espacio posible, ya que el espacio de almacenamiento en routers suele ser limitado, lo que llevará a que el codigo deba ser refactorizado constantemente.
+    
+    Tras el análisis anterior, se ha concluído que lo más adecuado sería el uso de un método ágil de desarrollo, en concreto \textit{SCRUM}, que está más enfocado a la administración del desarrollo iterativo. \textit{SCRUM} consta de tres fases:
+    
+    \begin{itemize}
+        \item Planificación de un \textit{boceto}, donde se establecen los objetivos generales del proyecto y el diseño de la arquitectura del software.
+        \item Una serie de ciclos \textit{sprint}, donde cada ciclo desarrolla un incremento del sistema.
+        \item \textit{Cierre} del proyecto, fase en la cual se completa la documentación requerida como ayudas y manuales de usuario.
+    \end{itemize}
+
+    \textit{SCRUM} permite que el producto se desglose en piezas comprensibles de forma individual y que son desarrolladas de forma iterativa, recibiendo retroalimentación del usuario con cada entrega y realizando cambios en consecuencia. Para llevar a cabo el desarrollo utilizando este método, es necesario ocupar los roles imprescindibles para su funcionamiento.
+
+    \begin{itemize}
+        \item \textbf{Equipo de desarrollo:} Equipo responsable de llevar a cabo el desarrollo del sistema. Este rol estará compuesto únicamente por el alumno.
+        \item \textbf{Cliente:} Encargado de defininir los requisitos, utilizar las versiones resultantes de cada \textit{sprint} y aportar retroalimentación para la mejora del sistema. Este rol será llevado a cabo por el tutor del TFG.
+        \item \textbf{Maestro de SCRUM:} Encargado de rastrear el trabajo que queda por hacer, tomar desiciones, medir el avance en función de la planificación inicial y mantener la comunicación con el cliente. Este rol será adoptado por el alumno.
+    \end{itemize}

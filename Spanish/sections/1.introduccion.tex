@@ -1,0 +1,24 @@
+\label{sec:int}
+
+Internet, desde su creación, ha sido un medio cada vez más accesible. Capaz de brindar información en cualquier lugar, facilitar las comunicaciones y compartir recursos, entre otras funcionalidades. Se ha convertido en el pilar fundamental de la mayor revolución tecnológica de la historia y actualmente cuenta con un número de usuarios que representa casi el 50\% de los habitantes del planeta \cite{InternetUsage}.
+
+La creación de redes Wi-Fi ha permitido que los usuarios tengan una mayor disponibilidad de la conexión a Internet llevándola a sus dispositivos móviles, tanto dentro de casa como en el exterior. Esto es un innegable avance, sobre todo para las personas que han vivido durante estas dos últimas décadas siendo testigos de su abrumador desarrollo, pero no tan significativo para las nuevas generaciones, las cuales han nacido en la ``Era de la tecnología", y donde el disponer de una conexión a Internet está más cerca de ser una necesidad que una opción. De acuerdo al Instituto Nacional de Estadísitica, en el año 2016, el uso de Internet en España estuvo cerca de alcanzar la totalidad de la población en prácticamente todas las edades, como se puede apreciar en la figura \ref{fig:internet_ages}. Es importante destacar, que el uso de Internet por los menores se elevó a un 95.2\% en 2016, sin embargo, sólo el 94.9\% utilizó un ordenador \cite{articulo}.
+
+\begin{figure}[h!]
+    \centering
+        \includegraphics[scale=0.5]{internet_ages.eps}
+        \caption{Uso de internet en función de la edad}
+        \label{fig:internet_ages}
+\end{figure}
+
+Actualmente, es común que los menores de edad dispongan de dispositivos móviles desde los cuales puedan acceder a Internet, sin embargo, esto conlleva a que debido a su inmadurez y falta de experiencia, terminen pasando más tiempo del recomendado frente a una pantalla, sin dedicarle el tiempo necesario a sus obligaciones en casa, desatendiendo sus estudios o directamente perdiendo la comunicación con los seres que lo rodean. Además, es muy importante tener en cuenta que Internet no solo está lleno de ventajas, sino también de peligros. Un medio con tanto alcance y facilidad para las comunicaciones, hace que lograr el anonimato no sea un problema para cualquier persona con un mínimo de conocimientos técnicos, por lo que no es extremadamente raro escuchar casos donde un menor ha sido víctima de acoso, intimidación o incluso secuestro.
+
+Para evitar estos problemas, los padres deben educar a los menores con buenas prácticas de navegación. Controlar la información que dan en Internet, las personas que conocen y el tiempo que pasan ``en línea" es fundamental para evitar malas experiencias.
+
+No obstante, muchas de las herramientas disponibles para este control educativo precisan de conocimientos relativamente avanzados de informática y redes, como conocer las direcciones MAC de los dispositivos conectados, navegar por menús web con terminología demasiado técnica o aplicar y habilitar filtros basados en campos y criterios en su mayor parte desconocidos, por citar sólo alguno de ellos, cuando la mayoría de las veces lo único que se pretende es habilitar o no la conexión a Internet a un dispositivo concreto. Además, una buena parte de las herramientas que permiten este tipo de control sólo son accesibles en entorno web, accesible a su vez sólo desde el interior de los locales donde se encuentra la pasarela de acceso a Internet (conocida popularmente con el término de ``Router'').
+
+Por tanto, la disponibilidad de una aplicación adaptada para dispositivos móviles, accesible desde cualquier punto de Internet y que permita la realización de las funciones básicas de control de una red Wi-Fi doméstica de forma sencilla y transparente y en un lenguaje adaptado al perfil de un usuario básico (como habilitar la conexión Wifi a un móvil A, deshabilitar el acceso a la consola de juegos o al ordenador de la habitación de los niños), puede ser de gran utilidad y disponer de una gran demanda.
+
+En este trabajo se ha creado una aplicación para dispositivos móviles Android que cubre esta demanda para un tipo de pasarela doméstica concreta, aunque el modelo puede ser exportado para cualquier otra que tenga posibilidad de desarrollo de servicios software dentro del sistema operativo que la ejecuta. Particularmente la tecnología de acceso a Internet controlada es la tecnología 802.11, más conocida como Wifi, aplicable en el ámbito doméstico donde las pasarelas cuentan con esa tecnología (la inmensa mayoría) y los dispositivos se conectan a Internet a través de ella.
+
+A pesar de que la parte visible del sistema es sólo la aplicación Android, deliberadamente sencilla, el sistema consta de un servicio instalado en la pasarela que recibe las instrucciones de la aplicación Android y ejecuta las acciones pertinentes en la pasarela de filtrado o habilitación/deshabilitación de accesos.

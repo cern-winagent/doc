@@ -1,0 +1,58 @@
+\label{sec:obj}
+% presentar o problema que se vai tratar, incluír o obxectivo principal e os
+% específicos, de ser o caso, do traballo presentado, indicando o alcance para cada un deles.
+    Se presenta en la figura \ref{fig:red_soho} un esquema general de una red doméstica donde se incluye la terminología empleada.
+
+    \begin{figure}[h!]
+    \centering
+        \includegraphics[scale=0.2]{soho_network.eps}
+        \caption{Topología de una red doméstica}
+        \label{fig:red_soho}
+    \end{figure}
+
+    Básicamente una red doméstica de acceso a Internet consta de un dispositivo central (comúnmente conocido como ``Router'') pero con funcionalidades mas amplias y adaptadas a este tipo de redes, y a su vez con menos capacidad de proceso en general que un Router profesional. En adelante a este dispositivo se le llamará ``Pasarela'' o ``Gateway'' (en su terminología en inglés). Además de la Pasarela, una red doméstica puede contar con una instalación básica de cableado horizontal tipo par-trenzado de diferentes categorías, y elementos repetidores como conmutadores o incluso elementos repetidores de radio-frecuencia.
+
+    La pasarela dispone fundamentalmente de tres interfaces (aunque la mayoría añade una nueva interfaz para la conexión cableada de periféricos a través del bus USB): 
+    See Figure~\ref{fig:test1} on page~\pageref{fig:test1}
+
+    \begin{description}
+        \item[\underline{Interfaz WAN:}] Es la interfaz de acceso a Internet, llamada técnicamente \textit{interfaz a la red de acceso}. Esta interfaz puede tener un conector coaxial o de fibra óptica, aunque en muchas ocasiones utiliza también un conector RJ45 diferenciado de las interfaces LAN mediante un indicador, color o por estar en una posición diferente. En el caso de que la red de acceso sea inalámbrica, la interfaz WAN se muestra mediante una antena, mas o menos diferenciada de otras que pueda contener la Pasarela. La configuración de esta interfaz suele realizarse remotamente desde el operador de la red de acceso, ya que el correcto funcionamiento de la misma es su responsabilidad. El otro extremo del medio de transmisión conectado a ella (cable, fibra óptica o radio-frecuencia) se encuentra en las dependencias del operador. Por ello, se puede decir que la interfaz WAN es el enlace a Internet de la red doméstica.
+        \item[\underline{Interfaz LAN:}] Es una interfaz (en su inmensa mayoría con conector RJ45) que permite la conexión de equipos domésticos cableados a la Pasarela. Aunque físicamente aparezcan varios conectores RJ45 para esta labor, a nivel lógico la interfaz LAN es sólo una. A los diferentes conectores de la interfaz LAN se les llama ``puertos'' y la conexión entre ellos se dice que es conmutada. El hecho de que lógicamente sólo sea una interfaz implica que no se pueden bloquear o desbloquear puertos individuales; cualquier operación lógica que se realice sobre la LAN, tendrá efectos sobre todos los puertos de la misma.
+        \item[\underline{Interfaz WIFI:}] La interfaz WIFI es una antena, exterior o interior. Aunque suele estar internamente conectada a la interfaz LAN (puente LAN-WIFI) tiene características especiales, pues suele habilitar a un segmento de red diferenciado de la interfaz LAN. El segmento al que da acceso es inalámbrico por tecnología 802.11 b/g/n, llamada popularmente Wifi (de ahí el nombre de la interfaz). Los dispositivos a los que da acceso esta interfaz son dispositivos inalámbricos, como ordenadores portátiles, consolas, teléfonos móviles o tablets. Últimamente también se pueden encontrar dispositivos domóticos con interfaz WIFI compatible. La habilitación del acceso a Internet a través de esta interfaz es altamente configurable, pudiéndose individualizar los accesos de los dispositivos por su dirección MAC u otras características. El proceso de configuración tanto de la interfaz WIFI como de los dispositivos que se pueden conectar a ella será el objetivo principal de este proyecto.
+    \end{description}
+
+\includepdf[
+    pages=1,
+    fitpaper,
+    addtolist={
+        1,
+        figure,
+        A test figure included with the help of the \texttt{pdfpages} package,
+        fig:test1
+    },
+    pagecommand={\label{fig:test}\thispagestyle{fancy}}
+]{../images/a.pdf}
+% TODO: añadir cara trasera a3 después
+
+    Teniendo en cuenta todo lo mencionado anteriormente, se decide realizar un estudio de necesidades generales analizando las características de los routers domésticos. Con los resultados obtenidos se debe crear un sistema capaz de controlar redes Wi-Fi similares a las que comunmente pueden ser encontradas en los hogares. De esta forma  los padres pueden limitar el uso de Internet a los menores de forma sencilla y sin necesitar conocimientos avanzados de informática.
+    \begin{enumerate}
+        \item \textbf{\underline{Control desde dispositivos móviles}} \\
+            El sistema debe ser capaz de ser controlado desde dispositivos móviles con los que se tenga accesso al router, el control deberá ser posible desde el exterior, mediante la interfaz WAN y desde dentro de la propia red doméstica, ya sea mediante la interfaz LAN, o la prropia interfaz Wi-Fi.
+        
+        \item \textbf{\underline{Encender y apagar red Wi-Fi}} \\
+            Se debe implementar un mecanismo de control que permita encender o apagar la red Wi-Fi desde el dispositivo cliente de forma sencilla e inmediata.
+
+        \item \textbf{\underline{Filtro MAC}} \\
+            Se busca implementar la gestión de un filtro MAC de tres estados, los cuales permitan gestionar los dispositivos a la red Wi-Fi, los diferentes estados con los que debe contar el filtro son:
+            \begin{itemize}
+                \item \textbf{Desactivado:} Permite que todos los dispositivos puedan tener acceso a la red Wi-Fi.
+                \item \textbf{Permitir:} Solamente permite que sean conectados a la red Wi-Fi los dispositivos explícitamente especificados. 
+                \item \textbf{Denegar:} Permite el acceso a la red Wi-Fi a todos los dispositivos excepto a los que sean explícitamente especificados.
+            \end{itemize}
+        \item \textbf{\underline{Seguridad contra dispositivos no autorizados}} \\
+            Aplicar un mecanismo de seguridad que elimine la posibilidad de que se pueda tomar el control del router desde un dispositivo móvil no autorizado.
+        \item \textbf{\underline{Seguridad contra la réplica de paquetes}} \\
+            Aplicar un mecanismo de seguridad capaz de impedir la réplica de paquetes de red que permitan cambiar configuraciones en el router de forma desautorizada.
+        \item \textbf{\underline{Soporte para idiomas}} \\
+            La aplicación cliente debe ser multilingüe, con soporte para los idiomas español e inglés, donde este último sea el idioma configurado por defecto al ser instalada.
+    \end{enumerate}
