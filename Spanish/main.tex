@@ -30,7 +30,7 @@
 \usepackage{hyperref}
 
 % -----
-
+% TODO: Volver a poner el header en la primera página de cada seccion
 %% headers and footers %%
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -47,15 +47,16 @@
 % set top sepparation to 15pt %
 \setlength{\headheight}{15pt}
 
-%% redefine emty and playn styles %%
+%% redefine emty and plain styles %%
 % empty pages are really empty %
 \usepackage{emptypage}
 
 % redefine plain stayle to put page numbers in their place in Chapter pages %
 \fancypagestyle{plain}{
-\fancyhf{}                              % remove header and footer
-\fancyfoot[RO,LE]{\thepage}             % set position for page numbers
-\renewcommand{\headrulewidth}{0pt}}     % remove header line
+    \fancyhf{}                              % remove header and footer
+    \fancyfoot[RO,LE]{\thepage}             % set position for page numbers
+    \renewcommand{\headrulewidth}{0pt}     % remove header line
+}
 
 % -----
 
@@ -114,12 +115,12 @@
 \chapter{Introducción}
 \input{sections/1-introduccion}
 
-% description %
-\chapter{Descripción del trabajo}
-
 \input{sections/2-objetivos}
 
 \input{Spanish/sections/3-resumen-de-la-solucion-propuesta.tex}
+
+% description %
+\chapter{Descripción del trabajo}
 
 \input{Spanish/sections/4-planificacion-y-seguimineto.tex}
 
@@ -137,7 +138,11 @@
 
 % conclusion %
 \chapter{Conclusiones}
-\input{Spanish/sections/11-conclusiones-y-trabajo-futuro.tex}
+\input{Spanish/sections/11-principales-aportaciones.tex}
+
+\input{Spanish/sections/12-conclusiones-y-tecnicas-y-personales.tex}
+
+\input{Spanish/sections/13-trabajo-futuro.tex}
 
 % imprimir no referenciadas
 \printbibliography
