@@ -1,0 +1,287 @@
+\appendix % TODO: Revisar anexos y fotos con títulos
+\section{RAID 1}\label{anx:raid1}
+    \begin{figure}[h!]
+    \centering
+        \includegraphics[scale=0.2]{raid1.png}
+        \caption{Estructura RAID1}
+        \label{fig:raid1}
+    \end{figure}
+    
+\section{Filtro de errores}\label{anx:hw-info}
+    \begin{figure}[h!]
+    \centering
+        \includegraphics[scale=0.55]{filtro-de-errores.png}
+        \caption{Filtro de errores de \textit{hardware}}
+        \label{fig:error-filter}
+    \end{figure}
+    
+\section{Listado de \textit{EventIDs} utilizados}\label{anx:eventid}
+    \textbf{Winagent}
+        \begin{enumerate}
+            \setcounter{enumi}{-1}
+            \item Error durante la administración del servicio
+            \item Ha ocurrido un error general
+            \item Error ejecutando el actualizador
+            \item Se ha actualizado el sistema de actualización automática
+            \item No hay \textit{plugins} que ejecutar
+            \item Error al ejecutar un \textit{plugin}
+            \item Archivo de configuración no encontrado.
+            \item Error en el archivo de configuración
+            \item Error obteniendo datos del archivo de configuración
+            \item Archivos inválidos en la carpeta ``plugins''
+            \item Error mientras se lanzaba un evento
+            \item No se pudo encontrar el ejecutable del actualizador
+            \item Ejecución de los \textit{plugins} superpuesta
+        \end{enumerate}{}
+        
+        \textbf{Actualizador automático}
+        \begin{enumerate}
+            \setcounter{enumi}{-1}
+            \item Error general del sistema
+            \item Petición HTTP fallida
+            \item Servicio no iniciado
+            \item No se pudo guardar un archivo
+            \item No se pudo encontrar el directorio ``tmp''
+            \item No se pudo encontrar la ruta al archivo de configuración
+            \item Error en el archivo de configuración
+            \item Error obteniendo datos del archivo de configuración
+            \item Componente actualizada
+        \end{enumerate}{}
+        
+    
+    \section{Ejemplo de configuración real}\label{anx:settings}
+        \begin{lstlisting}[style=csharp, caption=Fichero de configuración]
+            {
+              "autoUpdates": {
+                "enabled": true,
+                "source": "gitlab",
+                "uri": "https://gitlab.cern.ch/api/v4/projects/winagent%2F{plugin}/releases/production",
+                "schedule": {
+                  "seconds": 0,
+                  "minutes": 5,
+                  "hours": 1
+                }
+              },
+              "eventLogs": [
+                {
+                  "name": "Application",
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "logs",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "logs",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "System",
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "logs",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "logs",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "inputPlugins": [
+                {
+                  "name": "Storcli",
+                  "settings": {
+                  },
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Storcli",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Storcli",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      },
+                      "schedule": {
+                        "seconds": 0,
+                        "minutes": 2,
+                        "hours": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Facter",
+                  "settings": {
+                  },
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Facter",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Facter",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      },
+                      "schedule": {
+                        "seconds": 0,
+                        "minutes": 2,
+                        "hours": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Updates",
+                  "settings": {
+                  },
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Updates",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Updates",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      },
+                      "schedule": {
+                        "seconds": 0,
+                        "minutes": 0,
+                        "hours": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Heartbeat",
+                  "settings": {
+                  },
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Heartbeat",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Heartbeat",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      },
+                      "schedule": {
+                        "seconds": 0,
+                        "minutes": 2,
+                        "hours": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Superdoctor",
+                  "settings": {
+                  },
+                  "outputPlugins": [
+                    {
+                      "name": "RabbitMQ",
+                      "settings": {
+                        "servers": [
+                          {
+                            "hostName": "chopin-amqp-p.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Superdoctor",
+                            "virtualHost": "test"
+                          },
+                          {
+                            "hostName": "chopin-amqp-d.cern.ch",
+                            "userName": "restricted",
+                            "password": "restricted",
+                            "queueName": "Superdoctor",
+                            "virtualHost": "test"
+                          }
+                        ]
+                      },
+                      "schedule": {
+                        "seconds": 0,
+                        "minutes": 0,
+                        "hours": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+        \end{lstlisting}

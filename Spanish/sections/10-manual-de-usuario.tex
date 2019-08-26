@@ -1,7 +1,264 @@
 \section{Manual de usuario} \label{sec:man}
     \subsection{Requisitos mínimos}
+        Para poder utilizar \textit{Winagent} no son muchos los requisitos necesarios. El sistema operativo mínimo requerido para su utilización es \textit{Windows 7}, en cuanto a las versiones de escritorio, y \textit{Windows Server 2008} para las versiones \red{servidor}.
         
+        Se debe tener en cuenta que para instalar el agente como servicio, es necesario tener permisos de \textit{administrador} en el sistema. Además, en caso de utilizar algún \textit{plugin} que tenga dependencias específicas, estas deberán estar presentes en el equipo cuando se lleve a cabo su ejecución.
         
-
     \subsection{Manual de instalación}
+        \subsubsection{Estructura de los archivos}
+            Los archivos del sistema deben estar organizados con una estructura concreta, esto permite que todos los \textit{plugins} puedan ser cargados correctamente, así como las dependencias y la configuración a ejecutar.
+            % TODO: mirar si hay una mejor forma de hacer esto, quizás con el paquete "forest"
+            % TODO: Referenciar el diagrama
+            \dirtree{%
+            .1 Winagent.
+                .2 plugins.
+                    .3 plugin 1.
+                    .3 plugin 2.
+                    .3 plugin 3.
+                .2 tmp.
+                    .3 archivo temporal 1.
+                    .3 archivo temporal 2.
+                .2 dependencia 1.
+                .2 dependencia 2.
+                .2 plugins.dll.
+                .2 winagent.exe.
+                .2 winagent-updater.exe.
+                .2 config.json.
+            }
+            
+            \begin{itemize}
+                \item \textbf{Winagent} \\
+                    Directorio raíz donde se almacenan los archivos relacionados con el agente en sí, así como las dependencias relacionadas con los \textit{plugins} que lo necesiten.
+                    
+                \item \textbf{plugins} \\
+                    Directorio donde se encuentran las librerías correspondientes con los \textit{plugins} de entrada y salida que se deseen configurar.
+                    
+                \item \textbf{tmp} \\
+                    Directorio que contiene los archivos temporales que son descargados por el actualizador automático, esto incluye los archivos relacionados con el agente, plugins y \textit{hashes} para comprobar la integridad de los archivos descargados.
+                    
+                \item \textbf{plugin.dll} \\
+                    Interfaz de la que dependen todos los \textit{plugins} de la aplicación, es utilizada por el agente para detectar todos \red{los miembros} que la implementan.
+                
+                \item \textbf{winagent.exe} \\
+                    Ejecutable del agente, utilizado por el servicio una vez instalado.
+                
+                \item \textbf{winagent-updater.exe} \\
+                    Sistema de actualización automática, es lanzado directamente por el agente en intervalos programados.
+                
+                \item \textbf{config.json} \\
+                    Archivo de configuración donde se almacenan todos los ajustes por los que se rige el agente durante su ejecución, así como el proceso de actualización automática.
+                
+            \end{itemize}
+            
+        \subsubsection{Instalación del servicio}
+            Con la finalidad de que \textit{Winagent} pueda funcionar como un servicio, primeramente deberá ser instalado como tal. Este proceso requiere \red{de} que el usuario que las realiza cuente con permisos de administrador. Para llevar a cabo la instalación, puede ser utilizada cualquiera de las herramientas disponibles en el sistema operativo, o el verbo \textit{service} junto con la opción \textit{--install} de la propia aplicación.
+            
+            A continuación se muestran varias formas de instalar \textit{Winagent} utilizando diferentes medios.
+            \red{HABLAR DE QUE ES RUTA RELATIVA Y QUE HAY QUE PONER LA RUTA AL AGENTE??}
+            
+            \begin{lstlisting}[style=batch, caption=Instalación el servicio utilizando el propio agente]
+                > winagent.exe service --install
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Instalación el servicio utilizando la utilidad \textit{InstallUtil}]
+                > InstallUtil winagent.exe
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Instalación el servicio utilizando \textit{PowerShell}]
+                > New-Service -Name "winagent" -BinaryPathName "winagent.exe"
+            \end{lstlisting}
+            
+     \subsection{Manual de utilización}
+        \subsubsection{CLI}
+            \red{A través de la interfaz de línea de comandos que brinda el agente se puede hacer uso de todas sus funcionalidades utilizando el verbo \textbf{\textit{run}}}. Para ello existen dos métodos, indicando manualmente las opciones en el comando ejecutado o especificando un archivo de configuración donde se encuentren todos los ajustes a ejecutar.
+            
+            Al utilizar el verbo \textbf{\textit{run}}, por defecto, se utiliza el \textit{plugin de entrada} ``updates'' y el \textit{plugin de salida} ``output'', que es el que permite que los resultados sean mostrados en la consola.
+            
+            \begin{lstlisting}[style=batch, caption=Ejecución por defecto]
+                > winagent run
+            \end{lstlisting}
+            
+            Las opciones \textit{--input/-i} y \textit{--output/-o} sirven para especificar manualmente los \textit{plugins} que son ejecutados. Ejecutar el comando anteriór sería exactamente lo mismo que \red{ejecutar el siguiente comando:}
+            
+            \begin{lstlisting}[style=batch, caption=Ejecución de forma manual]
+                > winagent run -i updates -o console
+            \end{lstlisting}
+            
+            Además, también se pueden especificar las opciones necesarias para cada uno de los \textit{plugins} que se desea ejecutar. En el siguiente ejemplo se muestra cómo mostrar los datos utilizando un formato de tabla indicándo al \textit{plugin} ``output-type=table''. Para esto se deben utilizar las opciones ``input-options'' y ``output-options''. Múltiples \red{opciones} pueden ser separadas mediante comas(,).
+            
+            % TODO: probar todo esto
+            \begin{lstlisting}[style=batch, caption=Ejecución de forma manual]
+                > winagent run -o console --output-option output-type:table
+            \end{lstlisting}
+
+            % TODO: comprobar si es mejor utilizar --config            
+            Para utilizar un fichero de configuración, simplemente se debe especificar la ruta a este. Una vez iniciado, el agente carga los \textit{plugins} definidos, los cuales son ejecutados \red{en los períodos} configurados. Para terminar la ejecución basta con presionar cualquier tecla.
+            
+            \begin{lstlisting}[style=batch, caption=Ejecución utilizadno un fichero de configuración]
+                > winagent run C:\winagent\config.json
+            \end{lstlisting}
         
+        \subsubsection{Servicio}
+        
+            Cuando el agente es utilizado como servicio se ejecuta segundo plano y utiliza los ajustes especificados en un fichero de configuración nombrado \textit{config.json} que se encuentre su misma carpeta.
+            
+            Además, \textit{Winagent} cuenta con una herramienta que permite administrar el servicio a través de una consola de comandos, utilizando el verbo \textbf{\textit{service}}. A continuación se describen los comandos disponibles y su funcionalidad.
+            
+            \begin{lstlisting}[style=batch, caption=Instalar el servicio]
+                > winagent.exe service --install
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Desinstalar el servicio]
+                > winagent.exe service --uninstall
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Iniciar el service]
+                > winagent.exe service --start
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Detener el servicio]
+                > winagent.exe service --stop
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Reiniciar el servicio]
+                > winagent.exe service --restart
+            \end{lstlisting}
+            
+            \begin{lstlisting}[style=batch, caption=Comprobar el estado del servicio]
+                > winagent.exe service --status
+            \end{lstlisting}
+            
+        \subsubsection{Archivo de configuración}
+            En el archivo de configuración se deben establecer todos los ajustes con los que se desea ejecutar el agente. Este debe tener una estructura específica que incluye información utilizada por el actualizador, los lectores de eventos del sistema, los \textit{plugins} de entrada y salida, y las opciones con las que se ejecutarán estos. A continuación se muestra la estructura básica que debe tener este fichero, mientras que en el anexo \ref{anx:settings} se puede apreciar un ejemplo con el contenido \red{de un archivo real}.
+            
+            % TODO: crear estilo para archivo de configuracion
+            \begin{lstlisting}[style=csharp, caption=Fichero de configuración]
+                {
+                  "autoUpdates": {
+                    "enabled": true,
+                    "source": "gitlab / github",
+                    "uri": "ReleaseURL",
+                    "schedule": {
+                      "seconds": 0,
+                      "minutes": 0,
+                      "hours": 0
+                    }
+                  },
+                  "eventLogs": [
+                    {
+                      "name": "Application",
+                      "outputPlugins": [
+                        {
+                            "name": "OutputPluginName",
+                            "settings": {
+                              "SettingName": "SettingValue"
+                            },
+                            "schedule": {
+                              "seconds": 0,
+                              "minutes": 0,
+                              "hours": 0
+                            }
+                        }
+                      ]
+                    }
+                  ],
+                  "inputPlugins": [
+                    {
+                      "name": "InputPluginName",
+                      "settings": {
+                          "SettingName": "SettingValue"
+                      },
+                      "outputPlugins": [
+                        {
+                          "name": "OutputPluginName",
+                          "settings": {
+                            "SettingName": "SettingValue"
+                          },
+                          "schedule": {
+                            "seconds": 0,
+                            "minutes": 0,
+                            "hours": 0
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+            \end{lstlisting}
+            
+            
+    \red{PONER UN MANUAL DE CONFIGURACIÓN DE LOS PLUGINS DESARROLLADOS}
+        
+    \subsection{Manual de desarrollo}
+        Una de las \red{funcionalidades} principales de \textit{Winagent} es que permite el desarrollo de nuevos \textit{plugins} conpatibles con los ya existentes, permitiendo obtener más información y utilizarla en nuevos sistemas. A continuación se especifican los pasos necesarios para la creación de librerías que puedan ser utilizadas como \textit{plugins}.
+        
+        \begin{enumerate}
+            \item Compilar la librería base de los plugins. Puede ser encontrada tanto en GitHub como en GitLab.
+            
+            https://gitlab.cern.ch/winagent/plugin
+            
+            https://github.com/cern-winagent/plugin
+            
+            \item Crear una \textit{Biblioteca de Clases (.NET Framework)}
+            
+            \item Añadir la \textit{dll} compilada en el paso 1 como referencia al nuevo proyecto
+            
+            \item Crear una clase llamada \textit{I[nombre del plugin]} u \textit{O[nombre del plugin]} que implemente la interfaz \textit{IInputPlugin} o \textit{IOutputplugin} respectivamente.
+            
+            \item Nombrar el \textit{plugin} utilizando el atributo \textit{PluginName} \red{como un atributo de tipo \textit{PluginAttribute}}
+            
+            \item Implementar el método \textit{Execute}, donde se especifican las funciones que realizará el \textit{plugin}.
+        \end{enumerate}
+    
+        \begin{lstlisting}[style=csharp, caption=Plugin de entrada]
+            namespace plugin
+            {
+                /// <summary>
+                ///     This class implements the custom attribute required
+                ///     by the agent to be recognized as a plugin.
+                /// </summary>
+                [PluginAttribute(PluginName = "Updates")]
+                public class IUpdates : IInputPlugin
+                {
+                    /// <summary>
+                    ///     Runs the main functionality of the plugin.
+                    ///     Normally used to get system information.
+                    /// </summary>
+                    /// <param name="settings">
+                    ///     Settings to be used inside the plugin.
+                    /// </param>
+                    /// <returns>
+                    ///     A string formated as JSON.
+                    /// </returns>
+                    public string Execute(JObject settings)
+                    {
+                        ...
+            
+                        return jsonstring;
+                    }
+                }
+            }
+        \end{lstlisting}
+        
+        \begin{lstlisting}[style=csharp, caption=Plugin de salida]
+            namespace plugin
+            {
+                [PluginAttribute(PluginName = "Console")]
+                public class OConsole : IOutputPlugin
+                {
+                
+                    /// <summary>
+                    ///     Runs the main functionality of the plugin.
+                    ///     Normally used to show or send to another
+                    ///     system the information received.
+                    /// </summary>
+                    /// <param name="settings">
+                    ///     Settings to be used inside the plugin.
+                    /// </param>
+                    public void Execute(string data, JObject settings)
+                    {
+                        ...
+                    }
+                }
+            }
+        \end{lstlisting}

@@ -1,10 +1,27 @@
 \section{Trabajo futuro}
 % presentaranse posible ampliacións e traballos relacionados por facer.
         
+    Aunque el planteado en este proyecto ha sido alcanzado y es sistema al cual le red{pueden ser añadidos} una innumerable cantidad de funcionalidades a través de los plugins , no \red{caben} dudas de que aún puede ser mejorado, ya sea añadiendo nuevas funcionalidades en el propio agente, o mejorando las tareas que realiza para \red{proveer} una mejor eficiencia o brindar más control sobre el producto.
+    
+    A continuación se listan posibles mejoras que pueden ser añadidas al proyecto en un futuro.
+            
+    \subsection{Generador de configuraciones}
+        El hecho de que el sistema sea \red{muy} flexible hace que el usuario deba especificar en un archivo de configuración todos los ajustes necesarios para su ejecución. Debido a esto, la complejidad de este archivo puede llegar a ser muy alta, por lo que el usuario es propenso a cometer algún error durante su creación, lo que llevaría a un error durante la ejecución de la aplicación.
         
-generador de configuraciones
+        Para solventar este problema, sería muy útil implementar un sistema que permitiese crear los archivos de configuración de forma semi-automática. De esta forma, para obtener el contenido \textit{.JSON} con una configuración libre de errores, el usuario solo debería seleccionar los plugins que desee y rellenar los campos necesarios.
+        
+    \subsection{Soporte flexible para \textit{APIs} en el sistema de actualización automática}
+        El sistema de actualización automática implementado brinda soporte para las \textit{APIs} de \textit{GitHub} y \textit{GitLab}. Desde estas puede obtener la información necesaria acerca de los ficheros a actualizar, sin embargo, está limitado a la estructura de estas, por los que son las únicas fuentes que pueden ser utilizadas.
+        
+        Se podría crear un mecanismo que tomara la estructura de la \textit{API} desde el fichero de configuración, de forma que el usuario pueda establecerla manualmente. Esto permitiría el uso de \textit{APIs} personalizadas, pudiendo acceder a cualquiera de sus elementos.
 
-soporte general para git
+    \subsection{Paquete \textit{MSI}}
+        El sistema desarrollado es puede ser instalado y ejecutado como un servicio, además de que tiene la capacidad de ser actualizado de forma automática en períodos configurables. No obstante, el despliegue de la aplicación se realiza mediante \textit{scripts} cuyo objetivo es copiar todos los archivos y realizar las instalaciones pertinentes en cada uno de los servidores.
+        
+        Una solución a esta limitación sería la creación de un \textit{Instalador de Windows (.msi)} \cite{msi}, un paquete desplegable que contenga los archivos del sistema junto con todas sus dependencias, y realice su instalación de forma automática. Esto representa una gran \red{ventaja}, ya que es un tipo de instalador que puede ser desplegado fácilmente en varios sistemas mediante el uso de \textit{herramientas de gestión de configuración} \cite{configmanag} como \textit{Puppet}\cite{puppet} o directamente desde \textit{Active Directory}, herramientas que son actualmente utilizadas en el \textit{CERN}.
 
-instalador msi
+    \subsection{Detectar cambios en la configuración}
+        Dado que la configuración del agente es leída justo después de haber iniciado el sistema, cualquier cambio realizado en esta es ignorado hasta que el servicio sea reiniciado. Esto implica que si se desea realizar un cambio, se deberá reiniciar el servicio de forma manual o esperar a que ocurra una actualización de alguno de los componentes.
+        
+        Para solucionar esto se deberá crear un mecanismo que \red{se mantenga pendiente} del archivo de configuración con el que fue ejecutado el sistema, y una vez detecte algún cambio en este, reinicie el servicio de forma automática.
 
