@@ -33,7 +33,7 @@
             \end{figure}
 
         \subsubsection{Agente}
-            El agente es el encargado de llevar a cabo la ejecución de los plugins con las opciones y configuraciones especificadas por el usuario, ya sea a través la línea de comandos o de un archivo de configuración. Además, será el responsable de ejecutar el proceso de actualización automática siempre que este haya sido configurado previamente. Está compuesto por un conjunto de clases, cada una de ellas realiza una tarea específica que le permite funcionar como un todo. En la figura \ref{fig:diagrama-de-arquitectura-winagent} se puede ver la estructura del agente.
+            El agente es el encargado de llevar a cabo la ejecución de los \textit{plugins} con las opciones y configuraciones especificadas por el usuario, ya sea a través la línea de comandos o de un archivo de configuración. Además, será el responsable de ejecutar el proceso de actualización automática siempre que este haya sido configurado previamente. Está compuesto por un conjunto de clases, cada una de ellas realiza una tarea específica que le permite funcionar como un todo. En la figura \ref{fig:diagrama-de-arquitectura-winagent} se puede ver la estructura del agente.
             
             \begin{figure}[h!]
             \centering
@@ -42,7 +42,7 @@
                 \label{fig:diagrama-de-arquitectura-winagent}
             \end{figure}
 
-            Las clases que componen el agente están separadas por su funcionalidad, interactúan entre sí y pueden ser utilizadas durante la ejecución o no, de acuerdo a las opciones y configuración establecidas. Entre las clases se pueden encontrar las encargadas de la inicialización del agente, las que gestionan el agente y sus configuraciones, y las que procesan y transmiten la información entre plugins.
+            Las clases que componen el agente están separadas por su funcionalidad, interactúan entre sí y pueden ser utilizadas durante la ejecución o no, de acuerdo a las opciones y configuración establecidas. Entre las clases se pueden encontrar las encargadas de la inicialización del agente, las que gestionan el agente y sus configuraciones, y las que procesan y transmiten la información entre \textit{plugins}.
 
             \begin{enumerate}
                 \item Sistema de inicialización
@@ -79,61 +79,32 @@
             \end{enumerate}
 
         \subsubsection{Actualizador automático}
-            El sistema de actualización automática es el encargado de comprobar de forma periódica si las versiones instaladas son las últimas disponibles, esto incluye tanto el \textit{Agente} como los plugins y el propio actualizador.
+            El sistema de actualización automática es el encargado de comprobar de forma periódica si las versiones instaladas son las últimas disponibles, esto incluye tanto el \textit{Agente} como los \textit{plugins} y el propio actualizador.
+            
+            La ejecución de este sistema se realiza en un proceso separado, de forma
+            funciona como un script
+             itera por todos los componentes del sistema
         
-            El sistema cliente es el encargado de realizar las peticiones al servidor. Su implementación en Android puede ser interpretada como el uso del patrón arquitectónico Modelo Vista Controlador, separando las vistas como los \textit{Layouts}, los controladores como las \textit{Actividades} y el modelo como las \textit{SharedPreferences} y los \textit{AsyncTasks}. En la figura \ref{fig:client_diagram} se puede ver la estructura del cliente.
+            
 
             \begin{figure}[h!]
             \centering
-                \includegraphics[scale=0.7]{diagrama-de-arquitectura-winagent.eps}
+                \includegraphics[scale=0.7]{diagrama-de-arquitectura-updater.eps}
                 \caption{Diagrama de arquitectura del actualizador}
                 \label{fig:client_diagram}
             \end{figure}
+            
+            
 
-            La arquitectura del cliente está dividida en tres componentes siguiendo el patrón de arquitectura MVC. Los \textit{Layouts} son renderizados desde el componente \textit{Actividades}, este es el encargado de gestionar la interacción con el usuario, haciendo uso de los componentes \textit{AsyncTask} siempre que sea necesario. El componente \textit{SharedPreferences} es utilizado para el almacenamiento de la configuración del cliente.
-
-            A continuación se explica la función de cada uno de los subcomponentes del sistema:
-
-            \begin{enumerate}
-                \item Interfaz de usuario
-                    \begin{itemize}
-                        \item \textbf{\underline{Actividades}} \\
-                            Realiza función de controlador, es el componente encargado de renderizar las vistas haciendo uso de los \textit{Resources} necesarios. Gestiona las entradas del usuario, y a partir de estas se comunica con el sistema servidor a través de los \textit{AsyncTask}.
-                        \item \textbf{\underline{Resources}} \\ 
-                            Es el componente que representa el conjunto de recursos necesarios para renderizar las vistas de forma correcta, y que estas a su vez, puedan ser gestionadas por las \textit{Actividades}.
-                    \end{itemize}
-                \item SharedPreferences
-                    \begin{itemize}
-                        \item \textbf{\underline{Editor}} \\ 
-                            Permite almacenar elementos de forma sencilla como elementos clave-valor sin necesidad de utilizar una base de datos.
-                        \item \textbf{\underline{Loader}} \\
-                            Permiten recuperar los elementos clave-valor almacenados con el \textit{Editor}
-                    \end{itemize}
-                \item AsynckTask Servidor
-                    \begin{itemize}
-                        \item \textbf{\underline{Socket}} \\ 
-                            Componente mediante el cual se recibe información desde el servidor y provoca cambios parciales en las vistas a detravés del \textit{Sistema rollback}.
-                        \item \textbf{\underline{Sistema rollback}} \\
-                            Realiza cambios parciales en las vistas a través de las \textit{Actividades}, bloqueando los elementos modificados y devolviéndolos a su estado original en caso de fallo.
-                    \end{itemize}
-                \item AsynckTask Cliente
-                    \begin{itemize}
-                        \item \textbf{\underline{Codificador DES}} \\
-                            Utilizando la contraseña especificada por el usuario, aplica cifrado \textit{DES} a la información de control que luego es enviada al sistema servidor.
-                        \item \textbf{\underline{Codificador Base64}} \\
-                            Este componente es el encargado de cifrar en \textit{Base64} los datos obtenidos del \textit{Codificador DES} para que puedan ser enviados al sistema servidor a través del \textit{Socket}.
-                        \item \textbf{\underline{Socket}} \\ 
-                            Componente mediante el cual se envían los mensajes de control al sistema servidor en función de la entrada del usuario.
-                    \end{itemize}
-                    Componente que envía mensajes de control al sistema servidor, provoca cambios parciales en las vistas a través de la \textit{Actividad} desde la que es invocado
-            \end{enumerate}
-
+    \red{EXPLICAR LA FUNCIONALIDAD DE LOS COMPONENTES DEL ACTUALIZADOR}
+            
+            
     % TODO: Estructure del "paquete" datos enviados
 
     \subsection{Tecnologías e integración de productos de terceros}
     % describiranse adecuadamente as tecnoloxías utilizadas para o desenvolvemento do traballo, así coma os diversos productos que non son da autoría do/da estudante, xustificando a súa utilización.
         \subsubsection{Microsoft Windows}
-            Microsoft Windows es el nombre que recibe la familia de distribuciones basada en MS-DOS o Windows NT, desarrollada y comercializada por Microsoft Corporation. Estas estas distribuciones están disponibles para múltiples arquitecturas tales como x86, x86-64 o ARM, y hay opciones tanto para dispositivos de uso cotidiano como para servidores y sistemas de alta demanda. \cite{wikiwindows}
+            Microsoft Windows es el nombre que recibe la familia de distribuciones basada en MS-DOS o Windows NT, desarrollada y comercializada por Microsoft Corporation. Estas estas distribuciones están disponibles para múltiples arquitecturas tales como \textit{x86}, \textit{x86-64} o \textit{ARM}, y hay opciones tanto para dispositivos de uso cotidiano como para servidores y sistemas de alta demanda. \cite{wikiwindows}
             
             Microsoft Windows, además, permite el uso de servicios \cite{wikiservicios}, programas que se ejecutan en segundo plano, proveyendo funcionalidades de forma transparente sin la necesidad de intervención por parte del usuario. Esta funcionalidad es perfecta para la utilización de un software que actúe como agente y se mantenga en ejecución permanentemente, proveyendo datos del equipo donde está instalado.
             
