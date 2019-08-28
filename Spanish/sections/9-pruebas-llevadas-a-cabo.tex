@@ -2,20 +2,22 @@
 % describiranse as probas realizadas aos distintos niveis para
 % garantir o correcto funcionamento do software ou do hardware.
     
-    Muchos de los paradigmas de programación ágil abarcan el concepto de prueba unitaria. Pruebas programadas en el mismo lenguaje que se escribe la aplicación y que permiten comprobar el funcionamiento de una unidad de código. Sin embargo, dado que desde el inicio del proyecto no estaban claras las fuentes de información que iban a ser utilizadas debido a la gran variedad de librerías y las diferencias entre estas, además de la posibilidad de la adición de cambios en el proyecto que pudiesen cambiar toda su estructura y funcionamiento, se tomó la decisión de no utilizar pruebas automatizadas.
+    Muchos de los paradigmas de programación ágil abarcan el concepto de prueba unitaria. Pruebas programadas en el mismo lenguaje que se escribe la aplicación y que permiten comprobar el funcionamiento de una unidad de código. Sin embargo, dado que desde el inicio del proyecto no estaban claras las fuentes de información que iban a ser utilizadas debido a la gran variedad de librerías y las diferencias entre estas, además de la posibilidad de adición de cambios en el proyecto que pudiesen suponer una modificación de toda su estructura y funcionamiento, se tomó la decisión de no utilizar pruebas automatizadas.
     
     \subsection{Pruebas generales de funcionamiento}
-        Para comprobar si el sistema funcionaba correctamente se decidió realizar pruebas manuales, comprobando con cada cambio las funcionalidades previamente desarrolladas. Esto permitiría desarrollar una base del sistema, es decir, alcanzar un punto donde el agente fuese capaz de gestionar correctamente los diferentes \textit{plugins} y hacer uso de estos a través de la \textit{CLI}.
+        Para comprobar el correcto funcionamiento del sistema se decidió realizar pruebas manuales, comprobando con cada cambio las funcionalidades previamente desarrolladas e introduciendo valores correctos e incorrectos en los campos a comprobar.
+        
+        Para detectar el éxito o fallo de las pruebas realizadas se utilizó la consola de comandos, mostrando allí el resultado obtenido en cada ejecución, este mecanismo de pruebas ayudaría a desarrollar una base del sistema, es decir, alcanzar un punto donde el agente fuese capaz de gestionar correctamente los diferentes \textit{plugins} y hacer uso de estos a través de la \textit{CLI}.
         
     \subsection{Pruebas de funcionamiento como servicio}
-        Las pruebas mencionadas anteriormente fueron muy útiles durante el desarrollo de de las funcionalidades principales, sin embargo, probar el servicio supuso una tarea más complicada ya que no era posible mostrar la información en la línea de comandos.
+        El mecanismo mencionados anteriormente es útil durante el desarrollo de de las funcionalidades principales, sin embargo, probar el servicio supone una tarea más complicada ya que no es posible mostrar la información en la línea de comandos.
         
-        Para comprobar la ejecución del agente al ser utilizado como servició se utilizaron dos métodos, comprobar los sistemas remotos a donde se enviaba la información a ver si llegaba correctamente y los \textit{eventos del sistema} donde se mostraría cualquier información relacionada con el agente en sí.
+        Para comprobar la ejecución del agente al ser utilizado como servicio se decidió utilizar dos métodos, comprobar los sistemas remotos a donde se envía la información para determinar si llega correctamente y los \textit{eventos del sistema} donde se muetra cualquier información relacionada con el agente en sí.
         
-        El desarrollo de un sistema de actualización automática ayudó con las pruebas mencionadas en este apartado, ya que eliminó la necesidad de reiniciar el servicio manualmente y de copiar nuevas versiones de los \textit{plugins} en cada prueba.
+        El desarrollo de un sistema de actualización automática ayudó con las pruebas mencionadas en este apartado, ya que eliminaó la necesidad de reiniciar el servicio manualmente y de copiar nuevas versiones de los \textit{plugins} para realizar cada prueba.
     
     \subsection{Pruebas de actualización automática}
-        Para comprobar que el sistema de actualización automática funcionara correctamente se utilizaron los \textit{eventos del sistema}, donde se añadirían \textit{logs} para cada acción realizada, como la actualización de algún componente, cualquier tipo de fallo, o un indicador de que el proceso de actualización había terminado.
+        Para comprobar que el sistema de actualización automática funcionara correctamente se utilizaron los \textit{eventos del sistema}, donde fueron añadidos \textit{logs} para cada acción realizada, como la actualización de algún componente, cualquier tipo de fallo, o un indicador de que el proceso de actualización había terminado.
         
     \subsection{Eventos del sistema}
         Cada \textit{log} creado por el agente o el sistema de actualización automática cuenta con un identificador de evento que permite saber de dónde proviene el mensaje recibido. En el anexo \ref{anx:eventid} se muestra una lista con los identificadores para cada uno de los procesos.
@@ -37,9 +39,9 @@
             \label{fig:rabbitmq-dev-queue}
         \end{figure}
         
-        Estas imágenes demuestran que hay datos llegando a los servidores \textit{RabbitMQ}, sin embargo, el número de horas de ejecución del agente no coincide con la cantidad de paquetes recibidos para ambos \textit{plugins}. Esto se debe a que la información almacenada en estos servidores incluye mensajes de pruebas anteriores, además de varios reiniciaos del servicio, que hacen que se vuelva a realizar el envío de la información por parte de los \textit{plugins} aunque no haya pasado el tiempo establecido para ello.
+        Estas imágenes demuestran que hay datos llegando a los servidores \textit{RabbitMQ}, sin embargo, el número de horas de ejecución del agente no coincide con la cantidad de paquetes recibidos para ambos \textit{plugins}. Esto se debe a que la información almacenada en estos servidores incluye mensajes de pruebas anteriores, además de varios reinicios del servicio, que hacen que se vuelva a realizar el envío de la información por parte de los \textit{plugins} aunque no haya pasado el tiempo establecido para ello.
         
-        En las imágenes \ref{fig:rabbitmq-rate-heartbeat} y \ref{fig:rabbitmq-rate-updates} se pueden apreciar el número de mensajes recibidos en una hora (rango máximo que permiten las gráficas de \textit{RabbitMQ}), esto sí coincide con la configuración aplicada en el servicio, un mensaje de \textit{HeartBeat} cada dos minutos y uno de \textit{Updates} cada una hora.
+        En las imágenes \ref{fig:rabbitmq-rate-heartbeat} y \ref{fig:rabbitmq-rate-updates} se puede apreciar el número de mensajes recibidos en una hora (rango máximo que permiten las gráficas de \textit{RabbitMQ}), esto sí coincide con la configuración aplicada en el servicio, un mensaje de \textit{HeartBeat} cada dos minutos y uno de \textit{Updates} cada una hora.
         
         \begin{figure}[h!]
         \centering
@@ -51,7 +53,43 @@
         \begin{figure}[h!]
         \centering
             \includegraphics[scale=0.7]{rate-rabbit-mq-updates.png}
-            \caption{Mensajes por Hora - Updates}
+            \caption{Mensajes por hora - Updates}
             \label{fig:rabbitmq-rate-updates}
         \end{figure}
         
+        En la tabla \ref{tab:test-results} se muestran los resultados obtenidos por parte de la aplicación durante el proceso de pruebas de funcionamiento. El campo ``Ejecución'' indica el comando ejecutado para la realización de la prueba, mientras que las ``Condiciones especiales'' hacen referencia a restricciones que se han aplicado y que no pueden ser mostradas de otra forma. 
+
+        \begin{table}[h!]             
+            \centering                  
+                \resizebox{\textwidth}{!}{   
+                    \begin{tabular}{lllll}
+                        \hline
+                        \textbf{Ejecución}                          &   \textbf{Condiciones especiales}         &   \textbf{R. esperado}    &   \textbf{R. obtenido}    &   \textbf{R. Pruebas}       \\
+                        \hline
+                         run                                        &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run                                        &   Agente iniciado como servicio           &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run                                        &   Archivo de configuración no existente   &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run -i heartbeat                           &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run config.json                            &   Archivo de configuración no existente   &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run -i heartbeat                           &   \textit{Plugin} no existente            &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         run config.json                            &   Ninguna                                 &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         run --output-options outputType:table      &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         run --output-options outputType=table      &   Ninguna                                 &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         run --output-options outputType:image      &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         service --install                          &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         service --install                          &   Agente ya instalado                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --uninstall                        &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         service --uninstall                        &   Agente no instalado                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --uninstall                        &   Agente en ejecución                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --start                            &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         service --start                            &   Agente no instalado                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --start                            &   Agente en ejecución                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --stop                             &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
+                         service --stop                             &   Agente no instalado                     &   Fallo                   &   Fallo                   &   Éxito                     \\
+                         service --stop                             &   Agente no iniciado                      &   Fallo                   &   Fallo                   &   Éxito                     \\
+                        \hline&
+                    \end{tabular}
+                }
+            \caption{Resultados de las pruebas}
+            \label{tab:test-results}
+        \end{table}

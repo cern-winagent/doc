@@ -1,4 +1,228 @@
-\section{Especificación y análisis de requisitos} \label{sec:req}
+\section{Análisis} \label{sec:req}
 % describiranse os requisitos necesarios, tanto funcionais como non funcionais. Incluiranse os aspectos máis relevantes correspondentes á análise do traballo realizado.
     
-    En esta sección se describen de forma detallada las historias de usuario
+    En esta sección se describen las historias de usuario que componen el \textit{backlog} del producto a desarrollar. En estas se especifica qué es lo que quiere el usuario y la razón por la que lo necesita, además de los requisitos que debe cumplir para determinar que la historia de usuario se ha completado correctamente.
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Sistema modular}}                                  \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & que el sistema sea modular                                    \\
+                
+                \textbf{Para}   & incorporar nuevas funcionalidades sin modificar el sistema    \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Los módulos pueden ser ejecutados de forma independiente}            \\
+                \multicolumn{2}{|l|}{El sistema es capaz de reconocer y utilizar módulos desarrollados independientemente}            \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Servicio}}                                         \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & ejecutar la aplicación como un servicio                       \\
+                
+                \textbf{Para}   & que se mantenga permanentemente en ejecución                  \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{El servicio se inicia con el sistema}                   \\
+                \multicolumn{2}{|l|}{El servicio no debe ser detenido ante el fallo de los \textit{plugins}}                                                               \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{CLI}}                                              \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & ejecutar la aplicación desde la consola de comandos           \\
+                
+                \textbf{Para}   & realizar ejecuciones manuales                                 \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{La aplicación puede recibir la configuración desde un archivo}       \\
+                \multicolumn{2}{|l|}{La aplicación puede recibir la configuración desde la propia consola}\\
+                \multicolumn{2}{|l|}{Permite gestionar el servicio}            \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Configuración}}                                    \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & especificar la configuración en un archivo                    \\
+                
+                \textbf{Para}   & desplegar el sistema fácilmente en varios servidores          \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Permite especificar el origen de las actualizaciones}            \\
+                \multicolumn{2}{|l|}{Permite especificar las los parámetros para los \textit{plugins} de entrada y salida}            \\
+                \multicolumn{2}{|l|}{Permite vincular \textit{plugins} de entrada con \textit{plugins} de salida} \\
+                \multicolumn{2}{|l|}{Permite vincular eventos del sistema con \textit{plugins} de salida} \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{EventLogs}}                                        \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & capturar eventos del sistema en tiempo real                   \\
+                
+                \textbf{Para}   & detectar errores en el servidor lo antes posible              \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Los eventos del sistema son leídos en menos de 10 segundos}            \\
+                \multicolumn{2}{|l|}{Se pueden capturar diferentes tipos de eventos}            \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Actualizador automático}}                          \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & que la aplicación se actualice automáticamente                \\
+                
+                \textbf{Para}   & tener siempre la aplicación actualizada en todos los servidores   \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Se comprueba que no haya errores de transferencia}            \\
+                \multicolumn{2}{|l|}{No se detiene la ejecución del servicio por más de 10 segundos}            \\
+                \multicolumn{2}{|l|}{Tiene soporte para \textit{GitHub}}            \\
+                \multicolumn{2}{|l|}{Tiene soporte para \textit{GitLab}}            \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Actualizaciones}}                                      \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & obtener información de las actualizaciones del Sistema Operativo  \\
+                
+                \textbf{Para}   & controlar los servidores desactualizados                      \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Se obtiene el número de actualizaciones disponibles}            \\
+                \multicolumn{2}{|l|}{Se determina la la fecha de instalación de la última actualización}            \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Latidos}}                                          \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & tener un sistema de latidos                                   \\
+                
+                \textbf{Para}   & saber cuando un servidor ha fallado                           \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}}                            \\
+                \hline
+                \multicolumn{2}{|l|}{La información tarda menos de 5 segundos en ser generada}  \\
+                \multicolumn{2}{|l|}{La información incluye la fecha del último reinicio}       \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Consola}}                                          \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & que la información sea mostrada en consola                    \\
+                
+                \textbf{Para}   & depurar error con comprobaciones manuales                     \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}}                            \\
+                \hline
+                \multicolumn{2}{|l|}{Permite imprimir la información en formato de tabla}       \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    
+    \begin{table}[h!]  
+        \resizebox{\linewidth}{!}{  
+            \begin{tabular}{|ll|}
+                \hline
+                \multicolumn{2}{|c|}{\textbf{RabbitMQ}}                                         \\
+                \hline
+                \textbf{Como}   & usuario                                                       \\
+                
+                \textbf{Quiero} & que la información se envíe a un servidor RabbitMQ            \\
+                
+                \textbf{Para}   & poder consumirla con otros sistemas                           \\
+                \hline
+                \hline
+                \multicolumn{2}{|c|}{\textbf{Pruebas de aceptación}} \\
+                \hline
+                \multicolumn{2}{|l|}{Permite enviar datos a múltiples servidores}               \\
+                \multicolumn{2}{|l|}{Permite especifica la cola a la que se desea enviar la información} \\
+                \hline
+            \end{tabular}
+        }
+    \end{table}
+    

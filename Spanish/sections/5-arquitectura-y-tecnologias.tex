@@ -43,6 +43,8 @@
             \end{figure}
 
             Las clases que componen el agente están separadas por su funcionalidad, interactúan entre sí y pueden ser utilizadas durante la ejecución o no, de acuerdo a las opciones y configuración establecidas. Entre las clases se pueden encontrar las encargadas de la inicialización del agente, las que gestionan el agente y sus configuraciones, y las que procesan y transmiten la información entre \textit{plugins}.
+            
+            A continuación se explican los componentes del agente.
 
             \begin{enumerate}
                 \item Sistema de inicialización
@@ -58,13 +60,13 @@
                     \end{itemize}
                 \item Planificador
                     \begin{itemize}
-                        \item \textbf{Gestor de configuración} \\ 
+                        \item \textbf{Inspector de configuración} \\ 
                         Encargado de leer el archivo de configuración y proveer al \textit{Sistema de planificación} con la información definida previamente por el usuario.
                         
                         \item \textbf{Sistema de planificación} \\
                         En caso de que la orden sea ejecutada correctamente en el \textit{Sistema de funciones de configuración}, se envía un mensaje de confirmación específico dependiendo de la orden que haya sido recibida y procesada.
                     \end{itemize}
-                \item Transmisor de información
+                \item Gestor de información
                     \begin{itemize}
                         \item \textbf{Plugins de entrada} \\ 
                         Son los plugins encargados de recopilar información del sistema mediante el uso de librerías \textit{.NET}. Sirven esta información a los \textit{Plugins de salida}
@@ -81,25 +83,50 @@
         \subsubsection{Actualizador automático}
             El sistema de actualización automática es el encargado de comprobar de forma periódica si las versiones instaladas son las últimas disponibles, esto incluye tanto el \textit{Agente} como los \textit{plugins} y el propio actualizador.
             
-            La ejecución de este sistema se realiza en un proceso separado, de forma
-            funciona como un script
-             itera por todos los componentes del sistema
-        
+            La ejecución de este sistema se realiza en un proceso separado que es invocado desde el propio agente, este mecanismo permite que cuando hay una actualización disponible, la aplicación puede ser detenida para reemplazar sus componentes y luego ser iniciada nuevamente.
             
-
+            En la figura \ref{fig:client-diagram} se muestra la estructura del actualizador. Está compuesto por varios métodos que realizan funciones diferenciadas. El flujo de ejecución es similar al de un \textit{script}, en el cual se itera a través de todos los componentes propuestos para ser actualizados. 
+            
             \begin{figure}[h!]
             \centering
                 \includegraphics[scale=0.7]{diagrama-de-arquitectura-updater.eps}
                 \caption{Diagrama de arquitectura del actualizador}
-                \label{fig:client_diagram}
+                \label{fig:client-diagram}
             \end{figure}
             
+            A continuación se explican los componentes del actualizador:
             
-
-    \red{EXPLICAR LA FUNCIONALIDAD DE LOS COMPONENTES DEL ACTUALIZADOR}
+            \begin{itemize}
+                \item \textbf{Gestor de actualizaciones} \\
+                Componente principal desde el que se hace referencia al resto de los componentes del actualizador. Contiene la información obtenida en cada paso y controla el flujo de ejecución. 
+                
+                \item \textbf{Inspector de actualizaciones} \\
+                Es el encargado obtener y realizar el análisis sintáctico de la información correspondiente a las últimas versiones disponibles para cada uno de los componentes del sistema.
+                
+                \item \textbf{Cliente Rest} \\
+                Sistema que envía solicitudes \textit{HTTP} al servidor remoto para proveer al \textit{Inspector de actualizaciones} con la información que necesita.
+                
+                \item \textbf{Analizador de \textit{plugins}} \\
+                Realiza una comparación entre la información obtenida del servidor remoto y la correspondiente a la instalación actual para determinar qué componentes del sistema deben ser actualizados.
+                
+                \item \textbf{Ejecutor de actualizaciones} \\
+                Sistema encargado de ordenar la descarga de los archivos necesarios y colocarlos en su ubicación correspondiente. Realiza las labores de detención e inicio del agente para llevar a cabo sus funciones.
+                
+                \item \textbf{Sistema de descargas} \\
+                Realiza la conexión al servidor remoto para descargar los archivos correspondientes a cada componente que debe ser actualizado. Además, inicia las comprobaciones de seguridad que permiten detectar si la descarga se ha realizado correctamente.
+                
+                \item \textbf{Sistema de sumas de verificación} \\
+                Realiza una verificación entre el \textit{hash} descargado desde el servidor remoto y el calculado a partir de la nueva versión del componente. \cite{checksum}
+            \end{itemize}{}
             
+            La estructura de la información recibida por el actualizador varía para la \textit{API} de \textit{GitHub} y \textit{GitLab}, sin embargo, el contenido deber ser el mismo. A continuación se especifica qué campos requiere el sistema de actualizaciones automáticas para poder llevar a cabo sus funcionalidades correctamente.
             
-    % TODO: Estructure del "paquete" datos enviados
+            \begin{itemize}
+                \item Nombre del componente
+                \item Versión
+                \item Enlace de descarga del componente
+                \item Enlace de descarga del \textit{checksum} del componente
+            \end{itemize}{}
 
     \subsection{Tecnologías e integración de productos de terceros}
     % describiranse adecuadamente as tecnoloxías utilizadas para o desenvolvemento do traballo, así coma os diversos productos que non son da autoría do/da estudante, xustificando a súa utilización.
