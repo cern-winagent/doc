@@ -9,8 +9,7 @@
     \subsection{Manual de instalación}
         \subsubsection{Estructura de los archivos}
             Los archivos del sistema deben estar organizados con una estructura concreta, esto permite que todos los \textit{plugins} puedan ser cargados correctamente, al igual que las dependencias y la configuración a ejecutar. A continuación se muestra un ejemplo de dicha estructura y una breve explicación de cada uno de los componentes que se encuentran en ella.
-            % TODO: mirar si hay una mejor forma de hacer esto, quizás con el paquete "forest"
-            % TODO: Referenciar el diagrama
+            
             \dirtree{%
             .1 winagent.
                 .2 plugins.
@@ -185,14 +184,11 @@
                 }
             \end{lstlisting}
             
-            
-    \red{PONER UN MANUAL DE CONFIGURACIÓN DE LOS PLUGINS DESARROLLADOS}
-        
     \subsection{Manual de desarrollo}
         Una de las características principales de \textit{Winagent} es que permite el desarrollo de nuevos \textit{plugins} que puedan ser combinados con los ya existentes sin modificar la aplicación, permitiendo obtener diferente información y utilizarla en nuevos sistemas. A continuación se muestran dos ejemplos y se especifican los pasos necesarios para la creación de librerías que puedan ser utilizadas como \textit{plugins}.
         
         \begin{enumerate}
-            \item Compilar la librería base de los plugins. Puede ser encontrada tanto en GitHub como en GitLab.
+            \item Compilar la librería base de los \textit{plugins}. Puede ser encontrada tanto en GitHub como en GitLab.
             
             https://gitlab.cern.ch/winagent/plugin
             

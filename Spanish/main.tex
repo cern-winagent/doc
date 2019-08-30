@@ -2,10 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, width=150mm, top=25mm, bottom=25mm]{geometry}
 % TODO: el espacio en blanco grande de las páginas va a la derecha o a la izquierda?
-% TODO: Poner todos los "plugin" en cusriva
-% TODO: eliminar todos los RED del documento (buscar ctrl+f)
 % TODO: comprobar que los apartados empiezan en la pagina derecha y la izquierda queda en blanco (mirar las reglas de la escuela y todo eso porque parece que solo los capítulos están comenzando así)
-% TODO: cambiar nombre de "listings" a "código" o algo así
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% group functionality %%
 % individual functionality %
@@ -47,6 +44,7 @@
 
 % -----
 % TODO: Volver a poner el header en la primera página de cada seccion
+%TODO: Las primeras páginas no tienen encabezado, hasta la introduccón
 %% headers and footers %%
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -79,14 +77,18 @@
 \usepackage{listings}
 \usepackage{lstautogobble}
 \usepackage{xcolor}
-%New colors defined below
+
+% rename lstlisting name %
+\renewcommand{\lstlistingname}{Código}
+
+% New colors defined below
 \definecolor{codegreen}{rgb}{0,0.5,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{redstrings}{rgb}{0.64,0.08,0.08}
 \definecolor{operatorspurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-%Code listing style named "mystyle"
+% Code listing style named "mystyle"
 \lstdefinestyle{csharp}{
     language={[Sharp]C},
     autogobble,
@@ -145,8 +147,6 @@
 % -----
 
 %% text options %%
-% rename table index %
-\renewcommand\listtablename{Índice de tablas}
 
 % set space between paragraphs %
 \setlength{\parskip}{1em}
@@ -175,15 +175,15 @@
 
 %% blank title info %%
 % this will generate a blank foil %
-% TODO: the title page will be printed separately %
 % \title{}
 % \date{}
 
-% TODO: eliminar esto, buscar todas las palabras en rojo para comprobarlas (comando \red)
-\usepackage{xcolor}
+% RED text color %
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 
 \begin{document}
+% rename table index %
+\renewcommand{\listtablename}{Índice de tablas}
 
 %% title page %%
 % \maketitle
@@ -207,32 +207,30 @@
 \chapter{Descripción del trabajo}
 
 \input{Spanish/sections/4-planificacion-y-seguimineto.tex}
-\cleardoublepage
+
 \input{Spanish/sections/5-arquitectura-y-tecnologias.tex}
-\cleardoublepage
+
 \input{Spanish/sections/6-espesificacion-y-analisis-de-requisitos.tex}
-\cleardoublepage
+
 \input{Spanish/sections/7-diseno-de-software.tex}
 
-% \input{Spanish/sections/8-gestion-de-datos-e-informacion.tex}
-\cleardoublepage
-\input{Spanish/sections/9-pruebas-llevadas-a-cabo.tex}
-\cleardoublepage
-\input{Spanish/sections/10-manual-de-usuario.tex}
+\input{Spanish/sections/8-pruebas-llevadas-a-cabo.tex}
+
+\input{Spanish/sections/9-manual-de-usuario.tex}
 
 % conclusion %
 \chapter{Conclusiones}
-\input{Spanish/sections/12-conclusiones-y-tecnicas-y-personales.tex}
+\input{Spanish/sections/10-conclusiones-y-tecnicas-y-personales.tex}
 
 \input{Spanish/sections/11-principales-aportaciones.tex}
 
-\input{Spanish/sections/13-trabajo-futuro.tex}
+\input{Spanish/sections/12-trabajo-futuro.tex}
 
 % conclusion %
 \chapter{Anexos}
-\input{Spanish/sections/14-anexos.tex}
+\input{Spanish/sections/13-anexos.tex}
 
 % imprimir no referenciadas
 \printbibliography
-%TODO: Anexos
+
 \end{document}
