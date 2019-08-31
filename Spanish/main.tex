@@ -1,8 +1,8 @@
 \documentclass[12pt, twoside, openright]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, width=150mm, top=25mm, bottom=25mm]{geometry}
-% TODO: el espacio en blanco grande de las páginas va a la derecha o a la izquierda?
-% TODO: comprobar que los apartados empiezan en la pagina derecha y la izquierda queda en blanco (mirar las reglas de la escuela y todo eso porque parece que solo los capítulos están comenzando así)
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% group functionality %%
 % individual functionality %
@@ -43,8 +43,7 @@
 \usepackage{hyperref}
 
 % -----
-% TODO: Volver a poner el header en la primera página de cada seccion
-%TODO: Las primeras páginas no tienen encabezado, hasta la introduccón
+
 %% headers and footers %%
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -61,15 +60,16 @@
 % set top sepparation to 15pt %
 \setlength{\headheight}{15pt}
 
-%% redefine emty and plain styles %%
+%% redefine empty and plain styles %%
 % empty pages are really empty %
 \usepackage{emptypage}
 
 % redefine plain stayle to put page numbers in their place in Chapter pages %
 \fancypagestyle{plain}{
-    \fancyhf{}                              % remove header and footer
-    \fancyfoot[RO,LE]{\thepage}             % set position for page numbers
-    \renewcommand{\headrulewidth}{0pt}     % remove header line
+    \fancyhf{}                                                              % remove header and footer
+    \fancyhead[RO,LE]{Winagent - Agente modular para servidores Windows}    % header title
+    \fancyfoot[RO,LE]{\thepage}                                             % set position for page numbers
+    \renewcommand{\headrulewidth}{0.4pt}                                      % set header line
 }
 
 % -----
@@ -174,9 +174,10 @@
 % -----
 
 %% blank title info %%
-% this will generate a blank foil %
-% \title{}
-% \date{}
+% this will generate a blank page %
+\title{}
+\date{}
+\author{}
 
 % RED text color %
 \newcommand{\red}[1]{\textcolor{red}{#1}}
@@ -210,7 +211,7 @@
 
 \input{Spanish/sections/5-arquitectura-y-tecnologias.tex}
 
-\input{Spanish/sections/6-espesificacion-y-analisis-de-requisitos.tex}
+\input{Spanish/sections/6-analisis.tex}
 
 \input{Spanish/sections/7-diseno-de-software.tex}
 
