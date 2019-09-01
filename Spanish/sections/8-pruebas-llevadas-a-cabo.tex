@@ -27,30 +27,43 @@
         
         \begin{figure}[h!]
         \centering
-            \includegraphics[scale=0.69]{cola-rabbit-mq-prod.png}
+            \includegraphics[scale=0.8]{cola-rabbit-mq-prod.png}
             \caption{Colas de RabbitMQ - Producción}
             \label{fig:rabbitmq-prod-queue}
         \end{figure}
     
         \begin{figure}[h!]
         \centering
-            \includegraphics[scale=0.7]{cola-rabbit-mq-dev.png}
+            \includegraphics[scale=0.9]{cola-rabbit-mq-dev.png}
             \caption{Colas de RabbitMQ - Desarrollo}
             \label{fig:rabbitmq-dev-queue}
         \end{figure}
+        
+        Las columnas mostradas brindan información acerca del estado de las colas, a continuación se da una breve descripción de cada una.
+        
+        \begin{itemize}
+            \setlength\itemsep{2em}
+            \item \textbf{VirtualHost:} Grupo lógico de entidades al que pertenece la cola. \cite{virtualhost}
+            \item \textbf{Name:} Nombre de la cola que recibe la información
+            \item \textbf{Features:} Configuración de la cola, la ``D'' significa que la cola está marcada como ``durable'', es decir, que los mensajes persisten en la cola hasta que se indique lo contrario.
+            \item \textbf{Status:} Estado de la cola, indica si está libre o recibiendo mensajes en ese momento.
+            \item \textbf{Ready:} Número de paquetes disponibles para ser consumidos.
+            \item \textbf{Unacked:} Número de mensajes que fueron consumidos y de los que no se recibió confirmación.
+            \item \textbf{Total:} Total de mensajes recibidos.
+        \end{itemize}{}
         
         Estas imágenes demuestran que hay datos llegando a los servidores \textit{RabbitMQ}, sin embargo, el número de horas de ejecución del agente no coincide con la cantidad de paquetes recibidos para ambos \textit{plugins}. Esto se debe a que la información almacenada en estos servidores incluye mensajes de pruebas anteriores, además de varios reinicios del servicio, que hacen que se vuelva a realizar el envío de la información por parte de los \textit{plugins} aunque no haya pasado el tiempo establecido para ello.
         
         En las imágenes \ref{fig:rabbitmq-rate-heartbeat} y \ref{fig:rabbitmq-rate-updates} se puede apreciar el número de mensajes recibidos en una hora (rango máximo que permiten las gráficas de \textit{RabbitMQ}), esto sí coincide con la configuración aplicada en el servicio, un mensaje de \textit{HeartBeat} cada dos minutos y uno de \textit{Updates} cada una hora.
         
-        \begin{figure}[h!]
+        \begin{figure}[H]
         \centering
             \includegraphics[scale=0.7]{rate-rabbit-mq-heartbeat.png}
             \caption{Mensajes por hora - HeartBeat}
             \label{fig:rabbitmq-rate-heartbeat}
         \end{figure}
         
-        \begin{figure}[h!]
+        \begin{figure}[H]
         \centering
             \includegraphics[scale=0.7]{rate-rabbit-mq-updates.png}
             \caption{Mensajes por hora - Updates}
@@ -59,12 +72,12 @@
         
         En la tabla \ref{tab:test-results} se muestran los resultados obtenidos por parte de la aplicación durante el proceso de pruebas de funcionamiento. El campo ``Ejecución'' indica el comando ejecutado para la realización de la prueba, mientras que las ``Condiciones especiales'' hacen referencia a restricciones que se han aplicado y que no pueden ser mostradas de otra forma. 
 
-        \begin{table}[h!]             
+        \begin{table}[H]             
             \centering                  
                 \resizebox{\textwidth}{!}{   
                     \begin{tabular}{lllll}
                         \hline
-                        \textbf{Ejecución}                          &   \textbf{Condiciones especiales}         &   \textbf{R. esperado}    &   \textbf{R. obtenido}    &   \textbf{R. Pruebas}       \\
+                        \textbf{Ejecución}                          &   \textbf{Condiciones especiales}         &   \textbf{R. esperado}    &   \textbf{R. obtenido}    &   \textbf{R. pruebas}       \\
                         \hline
                          run                                        &   Ninguna                                 &   Éxito                   &   Éxito                   &   Éxito                     \\
                          run                                        &   Agente iniciado como servicio           &   Éxito                   &   Éxito                   &   Éxito                     \\
