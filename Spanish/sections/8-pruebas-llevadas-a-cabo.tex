@@ -39,7 +39,7 @@
             \label{fig:rabbitmq-dev-queue}
         \end{figure}
         
-        Las columnas mostradas brindan información acerca del estado de las colas, a continuación se da una breve descripción de cada una.
+        Las columnas mostradas brindan información acerca del estado de las colas, a continuación se muestra una breve descripción de cada una de ellas.
         
         \begin{itemize}
             \setlength\itemsep{2em}
@@ -54,7 +54,7 @@
         
         Estas imágenes demuestran que hay datos llegando a los servidores \textit{RabbitMQ}, sin embargo, el número de horas de ejecución del agente no coincide con la cantidad de paquetes recibidos para ambos \textit{plugins}. Esto se debe a que la información almacenada en estos servidores incluye mensajes de pruebas anteriores, además de varios reinicios del servicio, que hacen que se vuelva a realizar el envío de la información por parte de los \textit{plugins} aunque no haya pasado el tiempo establecido para ello.
         
-        En las imágenes \ref{fig:rabbitmq-rate-heartbeat} y \ref{fig:rabbitmq-rate-updates} se puede apreciar el número de mensajes recibidos en una hora (rango máximo que permiten las gráficas de \textit{RabbitMQ}), esto sí coincide con la configuración aplicada en el servicio, un mensaje de \textit{HeartBeat} cada dos minutos y uno de \textit{Updates} cada una hora.
+        En las figuras \ref{fig:rabbitmq-rate-heartbeat} y \ref{fig:rabbitmq-rate-updates} se puede apreciar el número de mensajes recibidos en una hora (rango máximo que permiten las gráficas de \textit{RabbitMQ}), esto sí coincide con la configuración aplicada en el servicio, un mensaje de \textit{HeartBeat} cada dos minutos y uno de \textit{Updates} cada una hora.
         
         \begin{figure}[H]
         \centering

@@ -7,7 +7,7 @@
 
         Se entiende que dada la variedad y versatilidad del sistema, no existe una arquitectura que pueda definirlo en su totalidad, ya que cada uno de los \textit{plugins} tiene una forma de desarrollo y método de comunicación que depende directamente de su funcionalidad. Sin embargo, se puede decir que la arquitectura general del sistema está enfocada en un modelo \textit{Basado en componentes}.
         
-        Este modelo de desarrollo de software enfatiza la descomposición del diseño en componentes funcionales o lógicos que se comuniquen mediante interfaces bien definidas. Esto permite alcanzar un mayor nivel de abstracción, ya que no se enfoca en las características específicas de cada componentes, sino en el sistema en sí, y en la forma en que estos componentes son integrados.
+        Este modelo de desarrollo de software enfatiza la descomposición del diseño en componentes funcionales o lógicos que se comuniquen mediante interfaces bien definidas. Esto permite alcanzar un mayor nivel de abstracción, ya que no se enfoca en las características específicas de cada componente, sino en el sistema en sí, y en la forma en que estos componentes son integrados.
         
         El \textit{desarrollo basado en componentes} ofrece algunas ventajas claras en este caso:
         \begin{itemize}
@@ -35,7 +35,7 @@
             \end{figure}
 
         \subsubsection{Agente}
-            El agente es el encargado de llevar a cabo la ejecución de los \textit{plugins} con las opciones y configuraciones especificadas por el usuario, ya sea a través la línea de comandos o de un archivo de configuración. Además, será el responsable de ejecutar el proceso de actualización automática siempre que este haya sido configurado previamente. Está compuesto por un conjunto de clases, cada una de ellas realiza una tarea específica que le permite funcionar como un todo. En la figura \ref{fig:diagrama-de-arquitectura-winagent} se puede ver la estructura del agente.
+            El agente es el encargado de llevar a cabo la ejecución de los \textit{plugins} con las opciones y configuraciones especificadas por el usuario, ya sea a través de la línea de comandos o de un archivo de configuración. Además, será el responsable de ejecutar el proceso de actualización automática siempre que este haya sido configurado previamente. Está compuesto por un conjunto de clases, cada una de ellas realiza una tarea específica que le permite funcionar como un todo. En la figura \ref{fig:diagrama-de-arquitectura-winagent} se puede ver la estructura del agente (\textit{Winagent}).
             
             \begin{figure}[h!]
             \centering
@@ -71,7 +71,7 @@
                 \item Gestor de información
                     \begin{itemize}
                         \item \textbf{Plugins de entrada} \\ 
-                        Son los \textit{plugins} encargados de recopilar información del sistema mediante el uso de librerías \textit{.NET}. Sirven esta información a los \textit{Plugins de salida}
+                        Son los \textit{plugins} encargados de recopilar información del sistema mediante el uso de librerías \textit{.NET}. Sirven esta información a los \textit{Plugins de salida}.
                             
                         \item \textbf{Plugins de salida} \\
                         Son los \textit{plugins} encargados de hacer llegar la información recopilada por los \textit{Plugins de entrada} a los \textit{sistemas objetivos}. Dependiendo de la finalidad para la que hayan sido creados pueden utilizar diferentes métodos, desde mostrar datos por pantalla hasta enviarlos a un servidor remoto.

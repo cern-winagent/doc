@@ -2,19 +2,19 @@
 % indicarase a solución aportada para o problema
 % presentado. Deberase incluír aquí a metodoloxía empregada.
 
-    Tras una fase de investigación para determinar las bases del proyecto, limitaciones e información que es necesario recopilar en los servidores, se ha realizado una comparativa entre los principales lenguajes de programación creando una aplicación con funcionalidades mínimas (acceder a librerías del sistema). Estas actividades han permitido tomar las siguientes desiciones.
+    Tras una fase de investigación para determinar las bases del proyecto, limitaciones e información que es necesario recopilar en los servidores, se ha realizado una comparativa entre los principales lenguajes de programación creando una aplicación con funcionalidades mínimas (acceder a librerías del sistema). Estas actividades han permitido tomar las siguientes decisiones.
     
-    Se creará una \textit{agente modular} utilizando el lenguaje de programación \textit{CSharp}, más concretamente \textit{.NET Framework} debido a la alta compatibilidad que brinda con las librerías de \textit{Windows}. Esto permitirá utilizar los mecanismos que proporciona el sistema operativo para obtener información propia.
+    Se creará un \textit{agente modular} utilizando el lenguaje de programación \textit{CSharp}, más concretamente \textit{.NET Framework} debido a la alta compatibilidad que brinda con las librerías de \textit{Windows}. Esto permitirá utilizar los mecanismos que proporciona el sistema operativo para obtener información propia.
     
     Los \textit{plugins} serán creados como librerías externas que podrán ser cargadas por el \textit{agente} en caso de estar en una carpeta específica durante su ejecución. La comunicación entre los \textit{plugins de entrada} y \textit{plugins de salida} se realizará mediante \textit{cadenas de texto} en formato \textit{JSON}, y ambos deberán recibir los parámetros necesarios en este mismo formato.
     
     Se utilizarán sistemas de control de versiones y se creará un repositorio para cada uno de los componentes, configurando mecanismos de \textit{integración continua} que permitan automatizar los procesos de compilación y publicación de nuevas versiones. Las publicaciones creadas proveerán con la información necesaria al sistema de actualización automática.
     
-    El mecanismo de actualización automática se encargará de mantener actualizado al agente, cada uno de los \textit{plugins} y a sí mismo. Para esto, comprobará periódicamente la última versión estable disponible, si esta es superior a la que está instalada actualmente, la reemplazará. Dado que mientras los componentes de la aplicación están siendo utilizados no pueden ser modificados, el sistema de actualización se será creado como una aplicación independiente encargada de terminar el proceso del agente, llevar a cabo la actualización, e iniciarlo una vez finalizado este.
+    El mecanismo de actualización automática se encargará de mantener actualizado al agente, cada uno de los \textit{plugins} y a sí mismo. Para esto, comprobará periódicamente la última versión estable disponible, si esta es superior a la que está instalada actualmente, la reemplazará. Dado que mientras los componentes de la aplicación están siendo utilizados no pueden ser modificados, el sistema de actualización será creado como una aplicación independiente encargada de terminar el proceso del agente, llevar a cabo la actualización, e iniciarlo una vez finalizado este.
     
     Los ajustes de la aplicación se establecerán en formato \textit{JSON}, separando las configuraciones en tres bloques: el actualizador, los eventos del sistema y los \textit{plugins}. En los dos últimos, la configuración de entrada recogerá los detalles de la configuración de salida, que incluirá, además de sus propias opciones, la frecuencia con la que se obtendrán los datos para transmitirlos por esa vía.
     
-    En la imagen \ref{fig:proposed-solution-diagram} se puede apreciar un diagrama resumen de la solución propuesta para la realización de este proyecto.
+    En la figura \ref{fig:proposed-solution-diagram} se puede apreciar un diagrama resumen de la solución propuesta para la realización de este proyecto.
     
     \begin{figure}[h!]
     \centering

@@ -2,7 +2,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, width=150mm, top=25mm, bottom=25mm]{geometry}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% group functionality %%
 % individual functionality %
@@ -182,13 +181,21 @@
 % RED text color %
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 
+% appendices, add refference in TOC and a blank page with the name %
+\usepackage[toc, page]{appendix}
+
+% Rename appendices page %
+\renewcommand\appendixpagename{Anexos}
+
+% Rename appendices toc name %
+\renewcommand\appendixtocname{Anexos}
+
 \begin{document}
 % rename table index %
 \renewcommand{\listtablename}{Índice de tablas}
 
 % rename table caption %
 \renewcommand{\tablename}{Tabla}
-
 
 %% title page %%
 % \maketitle
@@ -231,11 +238,12 @@
 
 \input{Spanish/sections/12-trabajo-futuro.tex}
 
-% conclusion %
-\chapter{Anexos}
-\input{Spanish/sections/13-anexos.tex}
+% appendices %
+\begin{appendices}
+    \input{Spanish/sections/13-anexos.tex}
+\end{appendices}{}
 
-% imprimir no referenciadas
+% bibliography %
 \printbibliography
 
 \end{document}
